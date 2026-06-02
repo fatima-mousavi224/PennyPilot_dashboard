@@ -1,0 +1,25 @@
+@import "tailwindcss";
+
+@theme {
+  /* معرفی متغیرها به تایل‌ویند برای استفاده در کلاس‌ها */
+  --color-primary-red: var(--primary-red);
+  --color-primary-white: var(--primary-white);
+  --color-grey-100: var(--grey-100);
+  --color-grey-50: var(--grey-50);
+  --color-text-1: var(--text-color-1);
+  --color-text-2: var(--text-color-2);
+  --color-saffron-yellow: var(--yellow);
+  --color-bg-grey: var(--background-grey);
+  
+}
+
+:root {
+  --primary-red: #931314; /* می‌توانید از HEX هم استفاده کنید که کوتاه‌تر است */
+  --primary-white: #ffffff;
+  --grey-100: #f0f0f0;
+  --grey-50: #dbdbdb;
+  --text-color-1: #1f1f1f;
+  --text-color-2: #4a4a4a;
+  --yellow: #f4c430;
+  --background-grey: #333333;
+}
