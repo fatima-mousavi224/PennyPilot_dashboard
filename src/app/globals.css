@@ -1,25 +1,61 @@
 @import "tailwindcss";
 
+
 @theme {
-  /* معرفی متغیرها به تایل‌ویند برای استفاده در کلاس‌ها */
-  --color-primary-red: var(--primary-red);
-  --color-primary-white: var(--primary-white);
-  --color-grey-100: var(--grey-100);
-  --color-grey-50: var(--grey-50);
-  --color-text-1: var(--text-color-1);
-  --color-text-2: var(--text-color-2);
-  --color-saffron-yellow: var(--yellow);
-  --color-bg-grey: var(--background-grey);
-  
+  --color-blue: #3B82F6;
+  --color-hover: #2563EB;
+  --color-background: #0F172A;
+  --color-surface-cards : #1E293B;
+  --color-border : #334155;
+  --color-primary : #F8FAFC;
+  --color-secondary : #94A3B8;
+  --color-success : #22C55E;
+  --color-error : #EF4444;
+  --color-warning : #F59E0B;
+
 }
 
-:root {
-  --primary-red: #931314; /* می‌توانید از HEX هم استفاده کنید که کوتاه‌تر است */
-  --primary-white: #ffffff;
-  --grey-100: #f0f0f0;
-  --grey-50: #dbdbdb;
-  --text-color-1: #1f1f1f;
-  --text-color-2: #4a4a4a;
-  --yellow: #f4c430;
-  --background-grey: #333333;
+.h1 {
+  font-size: 40px;
+  font-weight: 600;
+  font-style: semibold;
+  line-height: 100%;
+}
+
+.h2 {
+  font-size: 28px;
+  font-weight: 600;
+  font-style: semibold;
+  line-height: 100%;
+}
+
+.h3 {
+  font-size: 20px;
+  font-weight: 600;
+  font-style: semibold;
+  line-height: 100%;
+}
+
+.body {
+  font-size: 15px;
+  font-weight: 400;
+  font-style: regular;
+  line-height: 100%;
+}
+
+.small {
+  font-size: 13px;
+  font-weight: 400;
+  font-style: regular;
+  line-height: 100%;
+}
+
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;  
+    scrollbar-width: none;
+  }
 }
