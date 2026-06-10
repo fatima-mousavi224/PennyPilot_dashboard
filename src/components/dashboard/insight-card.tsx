@@ -1,4 +1,3 @@
-// import { Lightbulb, TrendingUp, AlertCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface InsightProps {
@@ -11,17 +10,14 @@ export const InsightCard = ({ text, type }: InsightProps) => {
     warning: {
       border: "border-error",
       bg: "bg-background",
-    //   icon: <AlertCircle className="h-4 w-4 text-red-500" />,
     },
     success: {
       border: " border-success",
       bg: "bg-background",
-    //   icon: <TrendingUp className="h-4 w-4 text-[#80E388]" />,
     },
     tip: {
       border: " border-hover",
       bg: "bg-background",
-    //   icon: <Lightbulb className="h-4 w-4 text-[#84DBE3]" />,
     },
   };
 
@@ -33,7 +29,6 @@ export const InsightCard = ({ text, type }: InsightProps) => {
       current.border,
       current.bg
     )}>
-      {/* <div className="mt-1">{current.icon}</div> */}
       <p className="body/7 text-secondary leading-relaxed">{text}</p>
     </div>
   );
