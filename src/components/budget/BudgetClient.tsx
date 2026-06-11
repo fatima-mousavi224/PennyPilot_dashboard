@@ -16,7 +16,6 @@ export default function BudgetClient({ initialBudgets }: { initialBudgets: any[]
 
   return (
     <main className="max-w-7xl mx-auto px-4 sm:px-6 md:px-10 lg:px-14 py-6 flex flex-col gap-8 pt-16">
-      {/* Header */}
       <div className="flex justify-between items-end">
         <div>
           <h1 className="text-primary text-2xl font-bold">Budget</h1>
@@ -31,7 +30,6 @@ export default function BudgetClient({ initialBudgets }: { initialBudgets: any[]
         </button>
       </div>
 
-      {/* Top Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <StatCard title="Total Budget" value={totalBudget} icon={<CircleDollarSign />} color="text-blue" />
         <StatCard title="Total Spent" value={totalSpent} icon={<TrendingUp />} color="text-error" />

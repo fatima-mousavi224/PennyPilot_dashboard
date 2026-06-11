@@ -8,6 +8,7 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
+  DialogDescription,
 } from "@/components/ui/dialog";
 
 interface BudgetModalProps {
@@ -30,17 +31,32 @@ export const BudgetModal = ({
     setLoading(true);
 
     const formData = new FormData(e.currentTarget);
-    const category = formData.get("category") as string;
+    
+    const rawCategory = (formData.get("category") as string) || initialData?.category;
     const limit = parseFloat(formData.get("limit") as string);
 
-    // Use UPSERT to avoid the "Duplicate Key" error
+    if (!rawCategory) {
+      alert("Error: Category is missing.");
+      setLoading(false);
+      return;
+    }
+
+    const { data: { user }, error: authError } = await supabase.auth.getUser();
+
+    if (authError || !user) {
+      alert("Authentication error: Please log in again.");
+      setLoading(false);
+      return;
+    }
+
     const { error } = await supabase.from("budgets").upsert(
       {
-        category: category.toLowerCase().trim(),
+        category: rawCategory.toLowerCase().trim(),
         limit_amount: limit,
+        user_id: user.id,
       },
       {
-        onConflict: "category", // This matches the "Unique" constraint in your DB
+        onConflict: "category",
       },
     );
 
@@ -55,13 +71,16 @@ export const BudgetModal = ({
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogContent className="bg-surface-cards border-border text-white sm:max-w-[400px]">
+      <DialogContent className="bg-surface-cards border-border text-white sm:max-w-100">
         <DialogHeader>
           <DialogTitle className="text-primary h3">
             {initialData
               ? `Edit ${initialData.category} Limit`
               : "Set New Budget"}
           </DialogTitle>
+          <DialogDescription className="text-xs text-gray-500 sr-only">
+            Form wrapper tool to configuration adjust spending allocation parameters.
+          </DialogDescription>
         </DialogHeader>
         <form onSubmit={handleSubmit} className="flex flex-col gap-4 py-4">
           <div className="flex flex-col gap-2">
@@ -70,7 +89,7 @@ export const BudgetModal = ({
               name="category"
               defaultValue={initialData?.category || "food"}
               disabled={!!initialData}
-              className="bg-[#0a0f1d] border border-gray-800 rounded-md p-2 text-white outline-none focus:border-blue"
+              className="bg-[#0a0f1d] border border-gray-800 rounded-md p-2 text-white outline-none focus:border-blue disabled:opacity-60"
             >
               <option value="food">Food</option>
               <option value="transport">Transport</option>

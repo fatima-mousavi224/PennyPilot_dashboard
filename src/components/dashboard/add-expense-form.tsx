@@ -17,7 +17,6 @@ export const AddExpenseForm = ({ setOpen, initialData }: AddExpenseFormProps) =>
 
   const isEditing = !!initialData;
 
-  // --- MONTH RESTRICTION LOGIC ---
   const now = new Date();
   const firstDay = new Date(now.getFullYear(), now.getMonth(), 1).toISOString().split("T")[0];
   const lastDay = new Date(now.getFullYear(), now.getMonth() + 1, 0).toISOString().split("T")[0];
@@ -31,8 +30,6 @@ export const AddExpenseForm = ({ setOpen, initialData }: AddExpenseFormProps) =>
     const dateValue = formData.get("date") as string;
     const selectedDate = new Date(dateValue);
 
-    // --- SAFETY CHECK ---
-    // Ensure user hasn't bypassed the UI to select a different month
     if (selectedDate.getMonth() !== now.getMonth() || selectedDate.getFullYear() !== now.getFullYear()) {
         alert("Please only select a date within the current month!");
         setLoading(false);
@@ -71,7 +68,6 @@ export const AddExpenseForm = ({ setOpen, initialData }: AddExpenseFormProps) =>
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-4 py-4">
-      {/* Description & Amount fields stay the same... */}
       <div className="flex flex-col gap-2">
         <label className="text-sm text-gray-400">Description</label>
         <input name="title" required defaultValue={initialData?.title} className="bg-[#0a0f1d] border border-gray-800 rounded-md p-2 text-white" placeholder="e.g. Starbucks" />
@@ -94,16 +90,15 @@ export const AddExpenseForm = ({ setOpen, initialData }: AddExpenseFormProps) =>
         </div>
       </div>
 
-      {/* --- UPDATED DATE INPUT --- */}
       <div className="flex flex-col gap-2">
         <label className="text-sm text-gray-400">Date (Current Month Only)</label>
         <input 
           name="date" 
           type="date" 
           required 
-          min={firstDay} // Limits the calendar start
-          max={lastDay}  // Limits the calendar end
-          defaultValue={initialData?.date || today} // Defaults to today if new
+          min={firstDay} 
+          max={lastDay}  
+          defaultValue={initialData?.date || today} 
           className="bg-[#0a0f1d] border border-gray-800 rounded-md p-2 text-white accent-[#5eead4]" 
         />
       </div>

@@ -30,7 +30,6 @@ export const TransactionItem = ({
   return (
     <div className="flex items-center justify-between py-4 border-b border-gray-800/50 last:border-0 hover:bg-white/5 transition-colors px-2 rounded-lg ">
       <div className="flex items-center gap-4">
-        {/* Icon Placeholder - You can use Lucide icons here based on type */}
        <div className={cn("h-10 w-10 rounded-[5px] flex items-center justify-center", config.color)}>
           <Icon className="h-5 w-5" /> 
         </div>

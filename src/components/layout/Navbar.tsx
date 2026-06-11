@@ -1,9 +1,11 @@
 "use client";
 
+import { useEffect, useState } from "react";
+import { createClient } from "@/utils/client";
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { Menu } from "lucide-react";
+import { usePathname, useRouter } from "next/navigation";
+import { Menu, LogOut } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger, SheetClose } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
 
@@ -11,11 +13,43 @@ const LinkItems = [
   { name: "Dashboard", href: "/" },
   { name: "Expenses", href: "/expenses" },
   { name: "Budget", href: "/budget" },
-  { name: "AI Coach", href: "/ai-coach" },
+  { name: "AI Coach", href: "/coach" },
 ];
 
 const Navbar = () => {
   const pathname = usePathname();
+  const router = useRouter();
+  const supabase = createClient();
+  const [avatarUrl, setAvatarUrl] = useState<string>("/images/avatar.jpg");
+
+  useEffect(() => {
+    const fetchUserAvatar = async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (user?.user_metadata?.avatar_url) {
+        setAvatarUrl(user.user_metadata.avatar_url);
+      }
+    };
+
+    fetchUserAvatar();
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      if (session?.user?.user_metadata?.avatar_url) {
+        setAvatarUrl(session.user.user_metadata.avatar_url);
+      } else {
+        setAvatarUrl("/images/avatar.jpg");
+      }
+    });
+
+    return () => {
+      subscription.unsubscribe();
+    };
+  }, [supabase.auth]);
+
+  const handleSignOut = async () => {
+    await supabase.auth.signOut();
+    router.push("/login");
+    router.refresh();
+  };
 
   return (
     <nav className="w-full">
@@ -40,16 +74,23 @@ const Navbar = () => {
           ))}
         </div>
 
-        <div className="hidden md:block">
+        <div className="hidden md:flex items-center gap-3 relative">
+          <button
+            onClick={handleSignOut}
+            className="text-red-500 hover:text-red-400 p-1.5 rounded-lg bg-red-500/10 hover:bg-red-500/20 transition-all active:scale-95 flex items-center justify-center focus:outline-none"
+            title="Sign Out"
+          >
+            <LogOut size={15} />
+          </button>
+          
           <Image 
-            src="/images/avatar.jpg" 
+            src={avatarUrl} 
             alt="avatar" 
             width={35} 
             height={35} 
-            className="rounded-full border border-gray-700" 
+            className="rounded-full border border-gray-700 object-cover aspect-square shrink-0" 
           />
         </div>
-
 
         <div className="md:hidden">
           <Sheet>
@@ -88,13 +129,25 @@ const Navbar = () => {
                 })}
               </div>
 
-              <div className="absolute bottom-10 left-8 flex items-center gap-4 border-t border-gray-800 pt-8 w-52.5">
-                <Image src="/images/avatar.jpg" alt="avatar" width={40} height={40} className="rounded-full" />
-                <div className="flex flex-col">
-                  <span className="text-sm font-bold text-white">My Account</span>
-                  <span className="text-xs text-gray-500">Settings</span>
+              <button 
+                onClick={handleSignOut}
+                className="absolute bottom-10 left-8 flex items-center justify-between border-t border-gray-800 pt-8 w-52.5 text-left focus:outline-none hover:opacity-80 transition-opacity"
+              >
+                <div className="flex items-center gap-4">
+                  <Image 
+                    src={avatarUrl} 
+                    alt="avatar" 
+                    width={40} 
+                    height={40} 
+                    className="rounded-full object-cover aspect-square" 
+                  />
+                  <div className="flex flex-col">
+                    <span className="text-sm font-bold text-white">My Account</span>
+                    <span className="text-xs text-gray-500">Sign Out</span>
+                  </div>
                 </div>
-              </div>
+                <LogOut size={16} className="text-red-500 mr-2" />
+              </button>
             </SheetContent>
           </Sheet>
         </div>

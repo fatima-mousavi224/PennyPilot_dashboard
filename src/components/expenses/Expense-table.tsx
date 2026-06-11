@@ -70,7 +70,6 @@ export const ExpenseTable = ({
       };
   };
 
-  // Empty State
   if (transactions.length === 0) {
     return (
       <div className="flex min-h-105 flex-col items-center justify-center rounded-[5px] border border-border bg-surface-cards px-6 text-center">

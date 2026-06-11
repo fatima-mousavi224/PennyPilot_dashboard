@@ -33,7 +33,7 @@ export const ExpenseStats = ({ total, count, avg }: ExpenseStatsProps) => {
       {stats.map((stat, i) => (
         <div 
           key={i} 
-          className="bg-surface-cards border border-border p-6 rounded-[5px] shadow-sm shadow-[#7700FF38] flex items-center gap-4"
+          className="bg-surface-cards border border-border p-6 rounded-[5px] shadow-[0_0_20px_rgba(119,0,255,0.15)] flex items-center gap-4"
         >
           <div className={`${stat.bg} p-3 rounded-[5px]`}>
             {stat.icon}
