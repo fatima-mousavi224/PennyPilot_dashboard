@@ -30,7 +30,7 @@ export default function BudgetClient({ initialBudgets }: { initialBudgets: any[]
         </button>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 border-t-[1.5px] border-border pt-8">
         <StatCard title="Total Budget" value={totalBudget} icon={<CircleDollarSign />} color="text-blue" />
         <StatCard title="Total Spent" value={totalSpent} icon={<TrendingUp />} color="text-error" />
         <StatCard title="Total Remaining" value={totalRemaining} icon={<PiggyBank />} color="text-success" />

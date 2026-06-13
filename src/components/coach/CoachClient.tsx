@@ -61,7 +61,7 @@ export default function CoachClient({ initialData }: CoachClientProps) {
 
   return (
     <main className="max-w-7xl mx-auto px-4 sm:px-6 md:px-10 lg:px-14 py-6 flex flex-col gap-8 pt-16">
-      <div>
+      <div className="border-b-[1.5px] border-border pb-8">
         <h1 className="text-primary h3 tracking-tight">AI Coach</h1>
         <p className="text-secondary body mt-3">
           Your personal AI-powered spending advisor
