@@ -58,7 +58,7 @@ export default async function DashboardPage() {
         <div className="lg:col-span-1">
           <AICoach data={transactions} />
         </div>
-        <div className="lg:col-span-2">
+        <div className="lg:col-span-2 h-full">
           <RecentTransactions initialData={transactions.slice(0, 5)} />
         </div>
       </div>

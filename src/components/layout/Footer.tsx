@@ -3,7 +3,7 @@ import Image from "next/image";
 const Footer = () => {
   return (
     <div className="w-full bg-secondary">
-      <div className="max-w-7xl mx-auto flex items-center justify-between px-4 sm:px-6 md:px-10 lg:px-14  py-6">
+      <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between px-4 sm:px-6 md:px-10 lg:px-14  py-6">
         <Image
           src="/light-logo/light-logo-1.svg"
           alt="footer logo"
