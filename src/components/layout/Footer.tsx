@@ -10,7 +10,7 @@ const Footer = () => {
           width={150}
           height={150}
         />
-        <p className="small text-border">
+        <p className="small text-border pt-4 md:pt-0">
           © 2026 PennyPilot — Built by Fatima Mousavi
         </p>
       </div>
